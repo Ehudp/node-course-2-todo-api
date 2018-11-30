@@ -1,3 +1,5 @@
+//mongo ds143774.mlab.com:43774/todos -u <dbuser> -p <dbpassword>
+//heroku config:set MONGOLAB_URI=mongodb://<dbuser>:<dbpassword>@ds143774.mlab.com:43774/todos
 var express = require('express');
 var bodyParser = require('body-parser');
 var { ObjectID } = require('mongodb');
