@@ -1,7 +1,6 @@
 {
   "name": "todo-api",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
@@ -24,5 +23,14 @@
     "mocha": "^5.2.0",
     "nodemon": "^1.18.7",
     "supertest": "^3.3.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ehudp/node-course-2-todo-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ehudp/node-course-2-todo-api/issues"
+  },
+  "homepage": "https://github.com/Ehudp/node-course-2-todo-api#readme",
+  "description": ""
 }
