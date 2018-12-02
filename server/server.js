@@ -1,5 +1,7 @@
 //mongo ds143774.mlab.com:43774/todos -u <dbuser> -p <dbpassword>
 //heroku config:set MONGOLAB_URI=mongodb://<dbuser>:<dbpassword>@ds143774.mlab.com:43774/todos
+
+require('./config/config');
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -11,7 +13,7 @@ var { User } = require('./models/user');
 
 var app = express();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
