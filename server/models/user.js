@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
 
-var userSchema = new mongoose.Schema({
+var UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
@@ -33,13 +33,13 @@ var userSchema = new mongoose.Schema({
     }]
 });
 
-userSchema.methods.toJSON = function () {
+UserSchema.methods.toJSON = function () {
     var user = this;
     var userObject = user.toObject();
     return _.pick(userObject, ['_id', 'email'])
 };
 
-userSchema.methods.generateAuthToken = function () {
+UserSchema.methods.generateAuthToken = function () {
 
     var user = this;
     var access = 'auth';
@@ -51,7 +51,17 @@ userSchema.methods.generateAuthToken = function () {
     });
 };
 
-userSchema.statics.findByToken = function (token) {
+UserSchema.methods.removeToken = function (token) {
+    var user = this;
+
+    return user.update({
+        $pull: {
+            tokens: { token }
+        }
+    });
+};
+
+UserSchema.statics.findByToken = function (token) {
 
     var User = this;
     var decoded;
@@ -68,7 +78,7 @@ userSchema.statics.findByToken = function (token) {
 
 };
 
-userSchema.statics.findByCredentials = function (email, password) {
+UserSchema.statics.findByCredentials = function (email, password) {
     var User = this;
     return User.findOne({
         email
@@ -90,7 +100,7 @@ userSchema.statics.findByCredentials = function (email, password) {
     });
 };
 
-userSchema.pre('save', function (next) {
+UserSchema.pre('save', function (next) {
     var user = this;
 
     if (user.isModified('password')) {
@@ -105,6 +115,6 @@ userSchema.pre('save', function (next) {
     }
 });
 
-var User = mongoose.model('User', userSchema);
+var User = mongoose.model('User', UserSchema);
 
 module.exports = { User };
